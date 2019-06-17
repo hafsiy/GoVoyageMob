@@ -90,6 +90,10 @@ public class DetailsOffresInterface {
         DetailsC.addAll(ImageOffreIV, idHotelLB, descriptionSP, DateC, PrixC, StarsC);
         ReserverC = new Container(BoxLayout.y());
         reserverBtn = new Button("Réserver");
+        reserverBtn.addActionListener(l -> {
+            AddVolReservationScreen form = new AddVolReservationScreen(0);
+
+        });
         ReserverC.add(reserverBtn);
         DetailsOffreForm.addAll(ImgC, TitreC, DetailsC, ReserverC);
         ServiceOffre service = new ServiceOffre();

@@ -1,5 +1,6 @@
 package com.mycompany.marwa;
 
+import GUI.AddVolReservationScreen;
 import GUI.DetailsOffresInterface;
 import com.codename1.io.Log;
 import com.codename1.ui.Form;
@@ -13,7 +14,7 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Toolbar;
 import com.codename1.ui.plaf.UIManager;
- 
+
 public class MyApplication {
 
     private Form current;
@@ -49,8 +50,8 @@ public class MyApplication {
 //           current.show();
 //            return;
 
-        DetailsForm = new DetailsOffresInterface();
-        
+        // DetailsForm = new DetailsOffresInterface();
+        AddVolReservationScreen form = new AddVolReservationScreen(0);
 
     }
 

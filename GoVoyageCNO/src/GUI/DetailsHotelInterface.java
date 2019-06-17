@@ -76,11 +76,11 @@ public class DetailsHotelInterface {
 
         if (hotel.size() > 0) {
             System.out.println(hotel.size());
-            AdresseSP.setText("Adresse : "+hotel.get(0).getAdresse_hotel());
+            AdresseSP.setText("Adresse : " + hotel.get(0).getAdresse_hotel());
             nomLB.setText((hotel.get(0).getNom_hotel()));
-            chambrelLB.setText("Nombre de chambre : "+(hotel.get(0).getChambre()) + "");
-            starsLB.setText("Catégorie : "+(hotel.get(0).getStars_hotel()) + "");
-            prixLB.setText("Prix moyen(hors la haute saison) : "+(hotel.get(0).getPrix()) + "");
+            chambrelLB.setText("Nombre de chambre : " + (hotel.get(0).getChambre()) + "");
+            starsLB.setText("Catégorie : " + (hotel.get(0).getStars_hotel()) + "");
+            prixLB.setText("Prix moyen(hors la haute saison) : " + (hotel.get(0).getPrix()) + "");
 
         }
         DetailsC = new Container(BoxLayout.y());
@@ -98,7 +98,6 @@ public class DetailsHotelInterface {
         });
 
 //        DetailsHotelForm.show();
-
         dialogContainer = DetailsC;
 
     }

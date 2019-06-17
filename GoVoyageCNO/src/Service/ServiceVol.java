@@ -6,13 +6,10 @@
 package Service;
 
 import Entity.HotelOffer;
-import Entity.Offre;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
-import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.ui.events.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,11 +17,12 @@ import java.util.Map;
 
 /**
  *
- * @author lenovo
+ * @author Lenovo
  */
-public class ServiceOffre {
-
-    public ArrayList<HotelOffer> ParseListOffresJason(String json) {
+public class ServiceVol {
+   
+    
+        public ArrayList<HotelOffer> ParseListOffresJason(String json) {
 
         ArrayList<HotelOffer> listOffre = new ArrayList<>();
 
@@ -67,6 +65,7 @@ public class ServiceOffre {
                 o.setPrix(obj.get("prix").toString());
 //                o.setId_hotel(Integer.parseInt(obj.get("id_hotel").toString()));
 
+
                 int idHotel = Integer.parseInt(obj.get("id_hotel").toString());
                 o.setId_hotel(idHotel);
                 System.out.println(o);
@@ -103,4 +102,5 @@ public class ServiceOffre {
         NetworkManager.getInstance().addToQueueAndWait(con);
         return offres;
     }
+    
 }
