@@ -2,6 +2,7 @@ package com.mycompany.marwa;
 
 import GUI.AddVolReservationScreen;
 import GUI.DetailsOffresInterface;
+import GUI.addReservationHotel;
 import com.codename1.io.Log;
 import com.codename1.ui.Form;
 import com.codename1.ui.util.Resources;
@@ -51,7 +52,8 @@ public class MyApplication {
 //            return;
 
         // DetailsForm = new DetailsOffresInterface();
-        AddVolReservationScreen form = new AddVolReservationScreen(0);
+        AddVolReservationScreen form = new AddVolReservationScreen(1);
+        addReservationHotel form1 = new addReservationHotel(1);
 
     }
 
