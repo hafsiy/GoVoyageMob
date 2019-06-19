@@ -14,9 +14,11 @@ import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.EncodedImage;
+import com.codename1.ui.Font;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.URLImage;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -29,7 +31,6 @@ import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.marwa.MyApplication;
 import java.util.ArrayList;
-import javafx.scene.chart.PieChart;
 
 /**
  *
@@ -44,9 +45,9 @@ public class DetailsOffresInterface {
     private SpanLabel descriptionSP;
     private ImageViewer ImageOffreIV;
     private Label titreOffreLB;
-    private Label idHotelLB;
+    private Button idHotelLB;
 
-    private Label dateDebutOffre, dateFinOffre;
+    private SpanLabel dateDebutOffre, dateFinOffre;
     private Label prix;
     private Container ImgC;
     private Container TitreC;
@@ -55,54 +56,65 @@ public class DetailsOffresInterface {
     private Container PrixC;
     private Container StarsC;
     private Container ReserverC;
-    ArrayList<HotelOffer> offer;
+    public static ArrayList<HotelOffer> offer;
 
-    public DetailsOffresInterface() {
+    public DetailsOffresInterface(int idOffer) {
 
         theme = UIManager.initFirstTheme("/theme");
 
         Form DetailsOffreForm = new Form("Détails Offres", BoxLayout.yLast());
         Form DetailsHotel = new Form("Détails Hotel", BoxLayout.yLast());
 
+        DetailsOffreForm.getStyle().setBackgroundGradientStartColor(0xFFBCCA);
+        DetailsOffreForm.getStyle().setBackgroundGradientEndColor(0xFFBCCA);
+
         ImgC = new Container(new FlowLayout());
         titreOffreLB = new Label("Titre offre");
-        idHotelLB = new Label();
+        idHotelLB = new Button();
         prix = new Label();
-        dateDebutOffre = new Label();
-        dateFinOffre = new Label();
+        descriptionSP = new SpanLabel();
+        dateDebutOffre = new SpanLabel();
+        dateFinOffre = new SpanLabel();
 
-        EncodedImage localimg = EncodedImage.createFromImage(MyApplication.theme.getImage("doghmene_marwa.jpg"), false);
+        EncodedImage localimg = EncodedImage.createFromImage(MyApplication.theme.getImage("placeholder.png").scaled(300, 300), false);
 
         URLImage imgOffre = URLImage.createToStorage(localimg, "HotelLesJasmins.png", "http://127.0.0.1:8080/HotelLesJasmins.jpg");
         ImageViewer ImaggeOffreIV;
         ImageOffreIV = new ImageViewer();
         ImageOffreIV.setImage(imgOffre);
-        descriptionSP = new SpanLabel();
+        descriptionSP.getTextAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+        titreOffreLB.getStyle().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+        prix.getStyle().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+
+        idHotelLB.getStyle().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+
+        dateDebutOffre.getTextAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
+        dateFinOffre.getTextAllStyles().setFont(Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_LARGE));
 
         TitreC = new Container(BoxLayout.x());
         DetailsC = new Container(BoxLayout.yLast());
         TitreC.addAll(titreOffreLB);
-        DateC = new Container(BoxLayout.x());
+        DateC = new Container(BoxLayout.y());
         PrixC = new Container(BoxLayout.x());
         PrixC.add(prix);
         DateC.addAll(dateDebutOffre, dateFinOffre);
         StarsC = new Container(BoxLayout.x());
-        DetailsC.addAll(ImageOffreIV, idHotelLB, descriptionSP, DateC, PrixC, StarsC);
+        DetailsC.addAll(ImageOffreIV, idHotelLB, TitreC, descriptionSP, DateC, PrixC, StarsC);
         ReserverC = new Container(BoxLayout.y());
         reserverBtn = new Button("Réserver");
         reserverBtn.addActionListener(l -> {
-            AddVolReservationScreen form = new AddVolReservationScreen(0);
+            //AddVolReservationScreen form = new AddVolReservationScreen(0);
 
         });
+
         ReserverC.add(reserverBtn);
-        DetailsOffreForm.addAll(ImgC, TitreC, DetailsC, ReserverC);
+        DetailsOffreForm.addAll(ImgC, DetailsC, ReserverC);
         ServiceOffre service = new ServiceOffre();
-        offer = service.getDetailsOffre(1);
-        idHotelLB.addPointerPressedListener(new ActionListener() {
+        offer = service.getDetailsOffre(idOffer);
+        idHotelLB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 InteractionDialog id = new InteractionDialog("Détails Hotel");
-
                 id.setLayout(new BorderLayout());
                 id.add(BorderLayout.CENTER, new Label("Hello Dialog"));
                 Button close = new Button("Close");
@@ -117,14 +129,24 @@ public class DetailsOffresInterface {
         });
 
         if (offer.size() > 0) {
-            titreOffreLB.setText(offer.get(0).getTitre_offre_hotel());
-            idHotelLB.setText((offer.get(0).getId_hotel()) + "");
-            descriptionSP.setText(offer.get(0).getDescription_offre_hotel());
-            dateDebutOffre.setText(offer.get(0).getDate_debut_dispo());
-            dateFinOffre.setText(offer.get(0).getDate_fin_dispo());
-            prix.setText(offer.get(0).getPrix());
+            titreOffreLB.setText("Titre : " + offer.get(0).getTitre_offre_hotel());
+            idHotelLB.setText("Voir détail Hotel");
+            descriptionSP.setText("Description : " + offer.get(0).getDescription_offre_hotel());
+            dateDebutOffre.setText("Date début : " + offer.get(0).getDate_debut_dispo());
+            dateFinOffre.setText("Date Fin : " + offer.get(0).getDate_fin_dispo());
+            prix.setText("Prix : " + offer.get(0).getPrix());
 
         }
+
+        Toolbar toolbar = new Toolbar();
+        DetailsOffreForm.setToolBar(toolbar);
+        toolbar.addCommandToLeftBar("back", theme.getImage("back.png"), new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                MyApplication.hi1.show();
+            }
+        });
+
         DetailsOffreForm.show();
 
     }

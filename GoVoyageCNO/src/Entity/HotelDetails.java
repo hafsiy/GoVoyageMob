@@ -10,9 +10,8 @@ package Entity;
  * @author lenovo
  */
 public class HotelDetails {
- 
-    
-      private int id_hotel;
+
+    private int id_hotel;
     private String nom_hotel;
     private String adresse_hotel;
     private String stars_hotel;

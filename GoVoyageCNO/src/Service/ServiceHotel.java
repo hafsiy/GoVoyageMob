@@ -69,7 +69,7 @@ public class ServiceHotel {
                 o.setId_hotel(stars);
                 int chambre = Integer.parseInt(obj.get("chambre_hotel").toString());
                 o.setId_hotel(chambre);
-                
+
                 int prix = Integer.parseInt(obj.get("prix_hotel").toString());
                 o.setPrix(prix);
                 System.out.println(o);
@@ -95,7 +95,9 @@ public class ServiceHotel {
     public ArrayList<HotelDetails> getDetailsOffre(int id) {
         System.out.println(1);
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://127.0.0.1:8080/Webservice/getDetailsHotel.php?id=" + id);
+        // con.setUrl("http://127.0.0.1:8080/Webservice/getDetailsHotel.php?id=" + id);
+        //bouraoui
+        con.setUrl("http://127.0.0.1/Webservice/getDetailsHotel.php?id=" + id);
         //con.setPost(false);
         con.addResponseListener((evt) -> {
             String response = new String(con.getResponseData());

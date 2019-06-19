@@ -92,7 +92,9 @@ public class ServiceOffre {
     public ArrayList<HotelOffer> getDetailsOffre(int id) {
         System.out.println(1);
         ConnectionRequest con = new ConnectionRequest();
-        con.setUrl("http://127.0.0.1:8080/Webservice/getDetailsOffre.php?id=" + id);
+        //con.setUrl("http://127.0.0.1:8080/Webservice/getDetailsOffre.php?id=" + id);
+        //bouraoui
+        con.setUrl("http://127.0.0.1/Webservice/getDetailsOffre.php?id=" + id);
         //con.setPost(false);
         con.addResponseListener((evt) -> {
             String response = new String(con.getResponseData());

@@ -64,7 +64,7 @@ public class DetailsHotelInterface {
         prixLB = new Label();
         AdresseSP = new SpanLabel();
 
-        EncodedImage localimg = EncodedImage.createFromImage(MyApplication.theme.getImage("doghmene_marwa.jpg"), false);
+        EncodedImage localimg = EncodedImage.createFromImage(MyApplication.theme.getImage("placeholder.png").scaled(300, 300), false);
 
         URLImage imgHotel = URLImage.createToStorage(localimg, "LesJasmins1.png", "http://127.0.0.1:8080/LesJasmins1.jpg");
         ImageViewer ImageHotelIV;
