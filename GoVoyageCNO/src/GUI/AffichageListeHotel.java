@@ -27,6 +27,7 @@ import com.codename1.ui.layouts.BoxLayout;
 //import com.codename1.ui.util.ImageIO;
 
 import com.codename1.ui.util.Resources;
+import com.mycompany.marwa.MyApplication;
 
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class AffichageListeHotel {
 
             @Override
             public void actionPerformed(ActionEvent evt) {
-
+               MyApplication.hi1.show();
             }
         });
         f.getToolbar().addCommandToRightSideMenu("Home", null, new ActionListener() {
@@ -103,6 +104,7 @@ public class AffichageListeHotel {
         detail.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                System.out.println(c.getId_offre_hotel());
                 detailsForm = new DetailsOffresInterface(c.getId_offre_hotel());
             }
         });
@@ -110,7 +112,7 @@ public class AffichageListeHotel {
         System.out.println(" " + c.getDate_debut_dispo());
         Form hi = new Form("Toolbar", new BoxLayout(BoxLayout.Y_AXIS));
         EncodedImage placeholder = EncodedImage.createFromImage(Image.createImage(hi.getWidth(), hi.getWidth() / 5, 0xffff0000), true);
-        URLImage background = URLImage.createToStorage(placeholder, "400px-AGameOfThrones.jpg", "https://cdn.pixabay.com/photo/2013/05/15/06/10/fall-foliage-111315_960_720.jpg");
+        URLImage background = URLImage.createToStorage(placeholder, "400px-AGameOfThrones.jpg", "http://127.0.0.1/" + c.getPhoto_offre_hotel());
 
         int deviceWidth = Display.getInstance().getDisplayWidth();
         EncodedImage encImage = EncodedImage.createFromImage(placeholder, false);
@@ -118,10 +120,9 @@ public class AffichageListeHotel {
         C2.add(background);
         C2.add(nom);
         C2.add(adr);
-
+        //C2.setLeadComponent(detail);
         C2.add(prix);
         C2.add(detail);
-        C2.setLeadComponent(detail);
 
         f.add(C2);
         f.refreshTheme();

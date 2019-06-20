@@ -110,6 +110,8 @@ public class MyApplication {
                 listuser = sc.getUser(login, passwod);
                 System.err.println(listuser);
                 if (listuser.size() > 0) {
+                    username.setText("");
+                    password.setText("");
                     user = listuser.get(0);
 
                     Container ver = new Container(BoxLayout.y());
@@ -167,6 +169,8 @@ public class MyApplication {
                     hi1.add(ver);
                     hi1.show();
 
+                }else {
+                     Dialog.show("Login ou Mot de passe invalide", "S'il vous plait veuillez vérifier votre Login et Mot de passe", "OK", "Cancel");
                 }
             }
 

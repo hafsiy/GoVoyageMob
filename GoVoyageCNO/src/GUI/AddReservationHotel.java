@@ -16,7 +16,7 @@ import java.util.Date;
  *
  * @author Yosr Hafsi
  */
-public class addReservationHotel {
+public class AddReservationHotel {
     Label departDate;
     Label arriveDate;
     Label nbChambre;
@@ -25,7 +25,7 @@ public class addReservationHotel {
     Label nbNuit;
     Button reserver;
     
-    public addReservationHotel(int idHotel) {
+    public AddReservationHotel(int idHotel) {
         
         
         arriveDate = new Label("Date d'arrivée");

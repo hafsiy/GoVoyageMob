@@ -30,6 +30,7 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.mycompany.marwa.MyApplication;
+import com.mycompany.marwa.Utility;
 import java.util.ArrayList;
 
 /**
@@ -76,9 +77,12 @@ public class DetailsOffresInterface {
         dateDebutOffre = new SpanLabel();
         dateFinOffre = new SpanLabel();
 
+        ServiceOffre service = new ServiceOffre();
+        offer = service.getDetailsOffre(idOffer);
+
         EncodedImage localimg = EncodedImage.createFromImage(MyApplication.theme.getImage("placeholder.png").scaled(300, 300), false);
 
-        URLImage imgOffre = URLImage.createToStorage(localimg, "HotelLesJasmins.png", "http://127.0.0.1:8080/HotelLesJasmins.jpg");
+        URLImage imgOffre = URLImage.createToStorage(localimg, "HotelLesJasmins.png", Utility.htdocsPath + offer.get(0).getPhoto_offre_hotel());
         ImageViewer ImaggeOffreIV;
         ImageOffreIV = new ImageViewer();
         ImageOffreIV.setImage(imgOffre);
@@ -103,14 +107,13 @@ public class DetailsOffresInterface {
         ReserverC = new Container(BoxLayout.y());
         reserverBtn = new Button("Réserver");
         reserverBtn.addActionListener(l -> {
-            //AddVolReservationScreen form = new AddVolReservationScreen(0);
+            new AddReservationHotel(offer.get(0).getId_offre_hotel());
 
         });
 
         ReserverC.add(reserverBtn);
         DetailsOffreForm.addAll(ImgC, DetailsC, ReserverC);
-        ServiceOffre service = new ServiceOffre();
-        offer = service.getDetailsOffre(idOffer);
+
         idHotelLB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -143,7 +146,7 @@ public class DetailsOffresInterface {
         toolbar.addCommandToLeftBar("back", theme.getImage("back.png"), new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                MyApplication.hi1.show();
+                new AffichageListeHotel();
             }
         });
 

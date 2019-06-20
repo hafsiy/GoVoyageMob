@@ -13,29 +13,24 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 
-
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-
 /**
  *
  * @author ASUS
  */
 public class ServiceRenseigtHotel {
-    
-        
+
     ArrayList<HotelOffer> listHot = new ArrayList<>();
-    
 
     public ArrayList<HotelOffer> parseListHJson(String json) {
-  
+
         try {
-            
-            
+
             JSONParser j = new JSONParser();
             Map<String, Object> hot = j.parseJSON(new CharArrayReader(json.toCharArray()));
 
@@ -43,54 +38,52 @@ public class ServiceRenseigtHotel {
 
             for (Map<String, Object> obj : list) {
 
-            HotelOffer e = new HotelOffer();
-                
-            float id = Float.parseFloat(obj.get("id_offre_hotel").toString());
-             System.out.println("id_offre_hotel "+obj.get("id_offre_hotel"));
-            e.setId_hotel((int) id);
-            e.setTitre_offre_hotel(obj.get("titre_offre_hotel").toString());
-            //e.setTitre_offre_hotel(obj.get("titre_offre_hotel").toString());
-            e.setDescription_offre_hotel(obj.get("description_offre_hotel").toString());
-            e.setPhoto_offre_hotel(obj.get("photo_offre_hotel").toString());
-            System.out.println("photo_offre_hotel " +obj.get("photo_offre_hotel").toString());
-            e.setDate_debut_dispo(obj.get("date_debut_dispo").toString());
-            e.setDate_fin_dispo(obj.get("date_fin_dispo").toString());
-            e.setPrix(obj.get("prix").toString());
-  
-            System.out.println("objet "+obj);
-  
-            listHot.add(e);
+                HotelOffer e = new HotelOffer();
+
+                float id = Float.parseFloat(obj.get("id_offre_hotel").toString());
+                System.out.println("id_offre_hotel " + obj.get("id_offre_hotel"));
+                e.setId_offre_hotel((int) id);
+                e.setTitre_offre_hotel(obj.get("titre_offre_hotel").toString());
+                //e.setTitre_offre_hotel(obj.get("titre_offre_hotel").toString());
+                e.setDescription_offre_hotel(obj.get("description_offre_hotel").toString());
+                e.setPhoto_offre_hotel(obj.get("photo_offre_hotel").toString());
+                System.out.println("photo_offre_hotel " + obj.get("photo_offre_hotel").toString());
+                e.setDate_debut_dispo(obj.get("date_debut_dispo").toString());
+                e.setDate_fin_dispo(obj.get("date_fin_dispo").toString());
+                e.setPrix(obj.get("prix").toString());
+                int idHotel = Integer.parseInt(obj.get("id_hotel").toString());
+                e.setId_hotel(idHotel);
+                System.out.println("objet " + obj);
+
+                listHot.add(e);
 
             }
-            
-            System.out.println("listHotel " +listHot);
-          
-        } catch (IOException ex) {
-       
-        }
-         return listHot;
-    }
-    
 
-    
-    public ArrayList<HotelOffer> getList2(){       
-    
-        
-        ConnectionRequest con= new ConnectionRequest();
-        con.setUrl("http://127.0.0.1/Webservice/getListeHotel.php"); 
+            System.out.println("listHotel " + listHot);
+
+        } catch (IOException ex) {
+
+        }
+        return listHot;
+    }
+
+    public ArrayList<HotelOffer> getList2() {
+
+        ConnectionRequest con = new ConnectionRequest();
+        con.setUrl("http://127.0.0.1/Webservice/getListeHotel.php");
 
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             public void actionPerformed(NetworkEvent evt) {
                 ServiceRenseigtHotel ser = new ServiceRenseigtHotel();
-                 String str = new String(con.getResponseData());//Récupération de la réponse du serveur
-                System.out.println("connectionData: "+str);
+                String str = new String(con.getResponseData());//Récupération de la réponse du serveur
+                System.out.println("connectionData: " + str);
                 listHot = ser.parseListHJson(new String(con.getResponseData()));
-                
-                System.out.println("connectionDatalistHot: "+listHot);
+
+                System.out.println("connectionDatalistHot: " + listHot);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);
         return listHot;
     }
-    
+
 }

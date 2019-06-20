@@ -11,6 +11,7 @@ import Service.ServiceAgence;
 import Service.ServiceReservation;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -107,6 +108,10 @@ public class AddVolReservationScreen {
             System.out.println("id user:" + timePickerDepart.getValue().toString());
             System.out.println("id user:" + timePickerArrive.getValue().toString());
             boolean isAdded = service.addVolReservation(reservation);
+
+            if (isAdded) {
+                Dialog.show("succès de l'opération", "votre réservation est bien enregistrée", "OK", "Cancel");
+            }
 
         });
 
